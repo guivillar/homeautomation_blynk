@@ -5,9 +5,7 @@
 #include <Ethernet.h>
 #include <BlynkSimpleEthernet.h>
 
-// You should get Auth Token in the Blynk App.
-// Go to the Project Settings (nut icon).
-char auth[] = "qu1dZovtFRPvQjTU-h-Q1O2bY2mkNMck";
+char auth[] = "YourAuth";
 
 #define W5100_CS  10
 #define SDCARD_CS 4
@@ -22,7 +20,7 @@ StopWatch mySW;
 WidgetLCD lcd(V2);
 
 
-BLYNK_WRITE(V1) //Button Widget is writing to pin V1
+BLYNK_WRITE(V1)
 {
   pinData = param.asInt();
   if (pinData == 1){
@@ -39,8 +37,6 @@ BLYNK_WRITE(V1) //Button Widget is writing to pin V1
     mySW.stop();
     mySW.reset();
     Serial.println("Stopou");
-    //lcd.print(4, 0, "DESLIGADO!");
-    
   }
 }
 
@@ -58,8 +54,6 @@ void relogio(){
       }
     }
   }
-
-  
   if(h=0){lcd.print(4, 0, "0");}
   else{lcd.print(4, 0, h);}
   lcd.print(5, 0, "h");
@@ -75,21 +69,13 @@ void relogio(){
 
 void setup()
 {
-  // Debug console
   Serial.begin(9600);
-  
-  //pinMode(SDCARD_CS, OUTPUT);
-  //digitalWrite(SDCARD_CS, HIGH); // Deselect the SD card
-
   Blynk.begin(auth);
-  
-  //currentTime = millis();
 }
 
 void loop()
 {
   stButton = digitalRead(5);
-  //Serial.println(stButton);
   if (pinData == 1){
     currentTime = mySW.elapsed();
     relogio();
